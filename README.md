@@ -1,1 +1,1 @@
-# GravarContas
+# GravarContas foi criado para responder o desafio da aula 64 da Universidade XTI, é um programa que cria contas bancarias com nome e saldo do usuario, faz operações de saque, depósito e transferência entre contas e grava todas essas operações em um txt.
