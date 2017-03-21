@@ -13,6 +13,7 @@ public class GeralContas {
 		OperacaoSistema op = new OperacaoSistema();
 		op.cadastrar();
 		op.sacarSistema();
+		op.depositarSistema();
 
 	}
 
