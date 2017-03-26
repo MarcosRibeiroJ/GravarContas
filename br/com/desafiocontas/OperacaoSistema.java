@@ -15,7 +15,7 @@ import java.io.IOException;
 public class OperacaoSistema {
 	
 	//A lista de contas sera usada por outros metodos, portando deve ser da classe
-	ArrayList<Conta2> contas = null;
+	ArrayList<Conta2> contas = new ArrayList<Conta2>();
 	String path = "C:/Users/Markinho/cadastro2.txt", escolha;
 	File arquivo;
 	int indice = 0;
@@ -27,7 +27,7 @@ public class OperacaoSistema {
 		String codConta, nome, op;
 		
 		//array que ira armazenar as contas
-		this.contas = new ArrayList<Conta2>();
+		//this.contas = new ArrayList<Conta2>();
 				
 		Scanner leitor = new Scanner(System.in);//scanner para ler dados
 		do {
@@ -38,7 +38,7 @@ public class OperacaoSistema {
 			System.out.println("Digite o saldo do cliente: ");
 			//criacao de objeto do tipo conta que recebe os dados do saldo e ja cria um objeto do tipo pessoa para armazenar o nome
 			Conta2 conta = new Conta2(codConta, new Cliente(nome), leitor.nextDouble());
-			contas.add(conta);//adicionando objeto conta no arraylist
+			this.contas.add(conta);//adicionando objeto conta no arraylist
 			gravar();//chamada do metodo que grava dados no arquivo
 			//controle para sair do laco ou continuar cadastrando contas
 			System.out.println("Deseja cadastrar outra conta? ");
@@ -156,6 +156,32 @@ public class OperacaoSistema {
 			escolha = leitor.next();//usei next para corrigir conflito que aparece quando uso nextLine
 		} while(!"sair".equals(escolha));
 	}//fim depositarSistema
+	
+	public void transferirSistema() {
+		
+		//valor do deposito
+		double valorTransferencia;
+			
+		//codigo da conta que sera pesquisado
+		String codContaOrigem, codContaDestino, parar;
+		
+		//criacao do leitor
+		Scanner leitor = new Scanner(System.in);
+		
+		do {
+			//verificando se ja existe conta cadastrada
+			if(this.contas == null || this.contas.size() <= 1) {
+				System.out.println("Voce nao possui duas ou mais contas cadastradas");
+				System.out.println("Digite qualquer tecla para cadastrar contas ou nao para sair:");
+				escolha = leitor.next();
+				
+				//caso o usuario queira cadastrar conta
+				if(!"nao".equals(escolha)) {
+					cadastrar();//chamada do metodo que cadastra contas
+				}
+			}
+		} while(this.contas == null || this.contas.size() <= 1 || !"nao".equals(escolha));
+	}
 	
 	//Metodo que pesquisa uma conta pelo codigo cadastrado e retorna a posicao desta no array
 	public int pesquisar(ArrayList<Conta2> contas, String codConta) {
