@@ -174,13 +174,14 @@ public class OperacaoSistema {
 				System.out.println("Voce nao possui duas ou mais contas cadastradas");
 				System.out.println("Digite qualquer tecla para cadastrar contas ou nao para sair:");
 				escolha = leitor.next();
-				
+								
 				//caso o usuario queira cadastrar conta
 				if(!"nao".equals(escolha)) {
 					cadastrar();//chamada do metodo que cadastra contas
 				}
 			}
-		} while(this.contas == null || this.contas.size() <= 1 || !"nao".equals(escolha));
+		} while(this.contas == null || this.contas.size() <= 1 && !"nao".equals(this.escolha));
+		System.out.println("terminou");
 	}
 	
 	//Metodo que pesquisa uma conta pelo codigo cadastrado e retorna a posicao desta no array
