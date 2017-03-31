@@ -60,46 +60,46 @@ public class OperacaoSistema {
 		Scanner leitor = new Scanner(System.in);
 		
 		//verificando se ja existe conta cadastrada
-		if(this.contas == null) {
+		if(this.contas.size() == 0) {
 			System.out.println("Voce nao possui contas cadastradas");
 			System.out.println("Digite qualquer tecla para cadastrar contas ou nao para sair:");
 			
 			//caso o usuario queira cadastrar conta
 			if(!"nao".equals(leitor.nextLine())) {
 				cadastrar();//chamada do metodo que cadastra contas
+				do {
+					//depois de ter as contas criadas, digitar o codigo de alguma para sacar
+					System.out.println("Digite o codigo da conta para saque: ");
+					
+					//armazena o valor digitado, usei o next para corrigir um conflito, se usar nextLine vai dar conflito nos casos em que nao localiza a conta cadastrada
+					codConta = leitor.next();
+					
+					//chamo o metodo pesquisar passando o array de contas e o codigo
+					//se nao encontrar ele retorna -1, se encontrar retorna a posicao da conta no array
+					if(pesquisar(contas, codConta) < 0) {
+						System.out.println("Conta nao cadastrada");
+					} else { //caso encontre, ja sera solicitado ao usuario que digite o valor para sacar
+						System.out.println("Digite o valor do saque: ");
+						valorSaque = leitor.nextDouble();
+						
+						//indice recebe o inteiro com a posicao da conta no array
+						indice = pesquisar(contas, codConta);
+						
+						//crio uma operacao de conta para sacar
+						OperacaoConta s = new OperacaoConta();
+						
+						//passo como parametro para o metodo a conta e o valor a sacar
+						s.sacar(contas.get(indice), valorSaque);
+						System.out.println("Cliente: " + contas.get(indice).getCliente().getNome() + " saldo: R$ " + contas.get(indice).getSaldo());
+						gravar();//chamada do metodo que grava o resultado do saque no txt
+					}
+					//controle para parar de sacar quando o usuario digitar sair
+					System.out.println("Digite qualquer tecla para realizar outro saque ou sair para encerrar: ");
+					leitor.nextLine();
+					escolha = leitor.next();//usei next para corrigir conflito que aparece quando uso nextLine
+				} while(!"sair".equals(escolha));
 			}
 		}
-		do {
-			//depois de ter as contas criadas, digitar o codigo de alguma para sacar
-			System.out.println("Digite o codigo da conta para saque: ");
-			
-			//armazena o valor digitado, usei o next para corrigir um conflito, se usar nextLine vai dar conflito nos casos em que nao localiza a conta cadastrada
-			codConta = leitor.next();
-			
-			//chamo o metodo pesquisar passando o array de contas e o codigo
-			//se nao encontrar ele retorna -1, se encontrar retorna a posicao da conta no array
-			if(pesquisar(contas, codConta) < 0) {
-				System.out.println("Conta nao cadastrada");
-			} else { //caso encontre, ja sera solicitado ao usuario que digite o valor para sacar
-				System.out.println("Digite o valor do saque: ");
-				valorSaque = leitor.nextDouble();
-				
-				//indice recebe o inteiro com a posicao da conta no array
-				indice = pesquisar(contas, codConta);
-				
-				//crio uma operacao de conta para sacar
-				OperacaoConta s = new OperacaoConta();
-				
-				//passo como parametro para o metodo a conta e o valor a sacar
-				s.sacar(contas.get(indice), valorSaque);
-				System.out.println("Cliente: " + contas.get(indice).getCliente().getNome() + " saldo: R$ " + contas.get(indice).getSaldo());
-				gravar();//chamada do metodo que grava o resultado do saque no txt
-			}
-			//controle para parar de sacar quando o usuario digitar sair
-			System.out.println("Digite qualquer tecla para realizar outro saque ou sair para encerrar: ");
-			leitor.nextLine();
-			escolha = leitor.next();//usei next para corrigir conflito que aparece quando uso nextLine
-		} while(!"sair".equals(escolha));
 	}//fim sacarSistema
 	
 	//Metodo que deposita um valor em uma conta escolhida pelo usuario
@@ -115,46 +115,46 @@ public class OperacaoSistema {
 		Scanner leitor = new Scanner(System.in);
 		
 		//verificando se ja existe conta cadastrada
-		if(this.contas == null) {
+		if(this.contas.size() == 0) {
 			System.out.println("Voce nao possui contas cadastradas");
 			System.out.println("Digite qualquer tecla para cadastrar contas ou nao para sair:");
 			
 			//caso o usuario queira cadastrar conta
 			if(!"nao".equals(leitor.nextLine())) {
 				cadastrar();//chamada do metodo que cadastra contas
+				do {
+					//depois de ter as contas criadas, digitar o codigo de alguma para depositar
+					System.out.println("Digite o codigo da conta para deposito: ");
+					
+					//armazena o valor digitado, usei o next para corrigir um conflito, se usar nextLine vai dar conflito nos casos em que nao localiza a conta cadastrada
+					codConta = leitor.next();
+					
+					//chamo o metodo pesquisar passando o array de contas e o codigo
+					//se nao encontrar ele retorna -1, se encontrar retorna a posicao da conta no array
+					if(pesquisar(contas, codConta) < 0) {
+						System.out.println("Conta nao cadastrada");
+					} else { //caso encontre, ja sera solicitado ao usuario que digite o valor para sacar
+						System.out.println("Digite o valor do deposito: ");
+						valorDeposito = leitor.nextDouble();
+						
+						//indice recebe o inteiro com a posicao da conta no array
+						indice = pesquisar(contas, codConta);
+						
+						//crio uma operacao de conta para depositar
+						OperacaoConta s = new OperacaoConta();
+						
+						//passo como parametro para o metodo a conta e o valor a depositar
+						s.depositar(contas.get(indice), valorDeposito);
+						System.out.println("Cliente: " + contas.get(indice).getCliente().getNome() + " saldo: R$ " + contas.get(indice).getSaldo());
+						gravar();//chamada do metodo que grava o resultado do saque no txt
+					}
+					//controle para parar de depositar quando o usuario digitar sair
+					System.out.println("Digite qualquer tecla para realizar outro deposito ou sair para encerrar: ");
+					leitor.nextLine();
+					escolha = leitor.next();//usei next para corrigir conflito que aparece quando uso nextLine
+				} while(!"sair".equals(escolha));
 			}
 		}
-		do {
-			//depois de ter as contas criadas, digitar o codigo de alguma para depositar
-			System.out.println("Digite o codigo da conta para deposito: ");
-			
-			//armazena o valor digitado, usei o next para corrigir um conflito, se usar nextLine vai dar conflito nos casos em que nao localiza a conta cadastrada
-			codConta = leitor.next();
-			
-			//chamo o metodo pesquisar passando o array de contas e o codigo
-			//se nao encontrar ele retorna -1, se encontrar retorna a posicao da conta no array
-			if(pesquisar(contas, codConta) < 0) {
-				System.out.println("Conta nao cadastrada");
-			} else { //caso encontre, ja sera solicitado ao usuario que digite o valor para sacar
-				System.out.println("Digite o valor do deposito: ");
-				valorDeposito = leitor.nextDouble();
-				
-				//indice recebe o inteiro com a posicao da conta no array
-				indice = pesquisar(contas, codConta);
-				
-				//crio uma operacao de conta para depositar
-				OperacaoConta s = new OperacaoConta();
-				
-				//passo como parametro para o metodo a conta e o valor a depositar
-				s.depositar(contas.get(indice), valorDeposito);
-				System.out.println("Cliente: " + contas.get(indice).getCliente().getNome() + " saldo: R$ " + contas.get(indice).getSaldo());
-				gravar();//chamada do metodo que grava o resultado do saque no txt
-			}
-			//controle para parar de depositar quando o usuario digitar sair
-			System.out.println("Digite qualquer tecla para realizar outro deposito ou sair para encerrar: ");
-			leitor.nextLine();
-			escolha = leitor.next();//usei next para corrigir conflito que aparece quando uso nextLine
-		} while(!"sair".equals(escolha));
 	}//fim depositarSistema
 	
 	public void transferirSistema() {
@@ -168,21 +168,28 @@ public class OperacaoSistema {
 		//criacao do leitor
 		Scanner leitor = new Scanner(System.in);
 		
-		do {
-			//verificando se ja existe conta cadastrada
-			if(this.contas == null || this.contas.size() <= 1) {
-				System.out.println("Voce nao possui duas ou mais contas cadastradas");
-				System.out.println("Digite qualquer tecla para cadastrar contas ou nao para sair:");
-				escolha = leitor.next();
-								
-				//caso o usuario queira cadastrar conta
-				if(!"nao".equals(escolha)) {
-					cadastrar();//chamada do metodo que cadastra contas
+		//verificando se ja existe conta cadastrada
+		if(this.contas == null || this.contas.size() <= 1) {
+			System.out.println("Voce nao possui duas ou mais contas cadastradas");
+			System.out.println("Digite qualquer tecla para cadastrar contas ou nao para sair:");
+										
+			//caso o usuario queira cadastrar conta
+			if(!"nao".equals(leitor.nextLine())) {
+				cadastrar();//chamada do metodo que cadastra contas
+				if(this.contas.size() <= 1) {
+					System.out.println("Voce ainda nao possui o minimo de duas contas cadastradas");
+					System.out.println("Se deseja realizar uma transferencia tera que cadastrar ao menos mais uma conta");
+					System.out.println("Digite qualquer tecla para cadastrar ou nao para sair");
+					
+					if(!"nao".equals(leitor.nextLine()) || this.contas.size() >= 2) {
+						cadastrar();//chamada do metodo que cadastra contas
+					}
 				}
+				System.out.println("Aqui começa a transferencia");
 			}
-		} while(this.contas == null || this.contas.size() <= 1 && !"nao".equals(this.escolha));
+		}
 		System.out.println("terminou");
-	}
+	}//fim metodo transferirSistema
 	
 	//Metodo que pesquisa uma conta pelo codigo cadastrado e retorna a posicao desta no array
 	public int pesquisar(ArrayList<Conta2> contas, String codConta) {
