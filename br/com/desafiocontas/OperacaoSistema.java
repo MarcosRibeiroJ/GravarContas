@@ -26,9 +26,6 @@ public class OperacaoSistema {
 		//string para nome do cliente, op para parar o laco e path com caminho do txt criado
 		String codConta, nome, op;
 		
-		//array que ira armazenar as contas
-		//this.contas = new ArrayList<Conta2>();
-				
 		Scanner leitor = new Scanner(System.in);//scanner para ler dados
 		do {
 			System.out.println("Digite o codigo da conta: ");
@@ -188,7 +185,15 @@ public class OperacaoSistema {
 				}
 				//verifica uma ultima vez se existem duas contas criadas para realizar a transferencia
 				if(this.contas.size() >= 2) {
-					System.out.println("Aqui começa a transferencia");
+					System.out.println("Digite o codigo da conta Origem: ");
+					codContaOrigem = leitor.next();
+					System.out.println("Digite o codigo da conta Destino: ");
+					codContaDestino = leitor.next();
+					if(pesquisar(contas, codContaOrigem) < 0 || pesquisar(contas, codContaDestino) < 0) {
+						System.out.println("Conta Origem ou Conta Destino nao cadastrada");
+					} else {
+						System.out.println("OK podemos transferir");
+					}
 				}
 			}
 		}
