@@ -176,16 +176,20 @@ public class OperacaoSistema {
 			//caso o usuario queira cadastrar conta
 			if(!"nao".equals(leitor.nextLine())) {
 				cadastrar();//chamada do metodo que cadastra contas
+				//verifica se apos cadastrar ja possui 2 contas
 				if(this.contas.size() <= 1) {
 					System.out.println("Voce ainda nao possui o minimo de duas contas cadastradas");
 					System.out.println("Se deseja realizar uma transferencia tera que cadastrar ao menos mais uma conta");
 					System.out.println("Digite qualquer tecla para cadastrar ou nao para sair");
-					
+					//caso nao possua duas contas e usuario queira cadastrar mais uma para transferir
 					if(!"nao".equals(leitor.nextLine()) || this.contas.size() >= 2) {
 						cadastrar();//chamada do metodo que cadastra contas
 					}
 				}
-				System.out.println("Aqui começa a transferencia");
+				//verifica uma ultima vez se existem duas contas criadas para realizar a transferencia
+				if(this.contas.size() >= 2) {
+					System.out.println("Aqui começa a transferencia");
+				}
 			}
 		}
 		System.out.println("terminou");
