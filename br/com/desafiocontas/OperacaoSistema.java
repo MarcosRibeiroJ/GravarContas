@@ -189,10 +189,28 @@ public class OperacaoSistema {
 					codContaOrigem = leitor.next();
 					System.out.println("Digite o codigo da conta Destino: ");
 					codContaDestino = leitor.next();
-					if(pesquisar(contas, codContaOrigem) < 0 || pesquisar(contas, codContaDestino) < 0) {
+					int indiceOrigem = pesquisar(contas, codContaOrigem);
+					int indiceDestino = pesquisar(contas, codContaDestino);
+					if(indiceOrigem < 0 || indiceDestino < 0) {
 						System.out.println("Conta Origem ou Conta Destino nao cadastrada");
 					} else {
-						System.out.println("OK podemos transferir");
+						
+						System.out.println("Digite o valor da transferencia: ");
+						valorTransferencia = leitor.nextDouble();
+						
+						//crio uma operacao de conta para transferir
+						OperacaoConta s = new OperacaoConta();
+						
+						//Imprimir os valores originais
+						System.out.println("Cliente Origem: " + contas.get(indiceOrigem).getCliente().getNome() + " saldo: R$ " + contas.get(indiceOrigem).getSaldo());
+						System.out.println("Cliente Destino: " + contas.get(indiceDestino).getCliente().getNome() + " saldo: R$ " + contas.get(indiceDestino).getSaldo());
+						
+						//passo como parametro para o metodo a conta origem, o valor a transferir e a conta destino
+						s.transferir(contas.get(indiceOrigem), valorTransferencia, contas.get(indiceDestino));
+						
+						//imprimir os valores apos a transferencia
+						System.out.println("Cliente Origem: " + contas.get(indiceOrigem).getCliente().getNome() + " saldo: R$ " + contas.get(indiceOrigem).getSaldo());
+						System.out.println("Cliente Destino: " + contas.get(indiceDestino).getCliente().getNome() + " saldo: R$ " + contas.get(indiceDestino).getSaldo());
 					}
 				}
 			}
