@@ -208,9 +208,13 @@ public class OperacaoSistema {
 						//passo como parametro para o metodo a conta origem, o valor a transferir e a conta destino
 						s.transferir(contas.get(indiceOrigem), valorTransferencia, contas.get(indiceDestino));
 						
-						//imprimir os valores apos a transferencia
+						//imprimir e gravar os novos valores apos a transferencia
 						System.out.println("Cliente Origem: " + contas.get(indiceOrigem).getCliente().getNome() + " saldo: R$ " + contas.get(indiceOrigem).getSaldo());
+						this.indice = indiceOrigem;
+						gravar();
 						System.out.println("Cliente Destino: " + contas.get(indiceDestino).getCliente().getNome() + " saldo: R$ " + contas.get(indiceDestino).getSaldo());
+						this.indice = indiceDestino;
+						gravar();
 					}
 				}
 			}
