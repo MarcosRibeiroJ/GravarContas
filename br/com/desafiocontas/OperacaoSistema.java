@@ -154,13 +154,14 @@ public class OperacaoSistema {
 		}
 	}//fim depositarSistema
 	
+	//Metodo que faz a transferencia de valor de uma conta para outra
 	public void transferirSistema() {
 		
 		//valor do deposito
 		double valorTransferencia;
 			
 		//codigo da conta que sera pesquisado
-		String codContaOrigem, codContaDestino, parar;
+		String codContaOrigem, codContaDestino;
 		
 		//criacao do leitor
 		Scanner leitor = new Scanner(System.in);
@@ -185,41 +186,46 @@ public class OperacaoSistema {
 				}
 				//verifica uma ultima vez se existem duas contas criadas para realizar a transferencia
 				if(this.contas.size() >= 2) {
-					System.out.println("Digite o codigo da conta Origem: ");
-					codContaOrigem = leitor.next();
-					System.out.println("Digite o codigo da conta Destino: ");
-					codContaDestino = leitor.next();
-					int indiceOrigem = pesquisar(contas, codContaOrigem);
-					int indiceDestino = pesquisar(contas, codContaDestino);
-					if(indiceOrigem < 0 || indiceDestino < 0) {
-						System.out.println("Conta Origem ou Conta Destino nao cadastrada");
-					} else {
-						
-						System.out.println("Digite o valor da transferencia: ");
-						valorTransferencia = leitor.nextDouble();
-						
-						//crio uma operacao de conta para transferir
-						OperacaoConta s = new OperacaoConta();
-						
-						//Imprimir os valores originais
-						System.out.println("Cliente Origem: " + contas.get(indiceOrigem).getCliente().getNome() + " saldo: R$ " + contas.get(indiceOrigem).getSaldo());
-						System.out.println("Cliente Destino: " + contas.get(indiceDestino).getCliente().getNome() + " saldo: R$ " + contas.get(indiceDestino).getSaldo());
-						
-						//passo como parametro para o metodo a conta origem, o valor a transferir e a conta destino
-						s.transferir(contas.get(indiceOrigem), valorTransferencia, contas.get(indiceDestino));
-						
-						//imprimir e gravar os novos valores apos a transferencia
-						System.out.println("Cliente Origem: " + contas.get(indiceOrigem).getCliente().getNome() + " saldo: R$ " + contas.get(indiceOrigem).getSaldo());
-						this.indice = indiceOrigem;
-						gravar();
-						System.out.println("Cliente Destino: " + contas.get(indiceDestino).getCliente().getNome() + " saldo: R$ " + contas.get(indiceDestino).getSaldo());
-						this.indice = indiceDestino;
-						gravar();
-					}
+					do {
+						System.out.println("Digite o codigo da conta Origem: ");
+						codContaOrigem = leitor.next();
+						System.out.println("Digite o codigo da conta Destino: ");
+						codContaDestino = leitor.next();
+						int indiceOrigem = pesquisar(contas, codContaOrigem);
+						int indiceDestino = pesquisar(contas, codContaDestino);
+						if(indiceOrigem < 0 || indiceDestino < 0) {
+							System.out.println("Conta Origem ou Conta Destino nao cadastrada");
+						} else {
+							
+							System.out.println("Digite o valor da transferencia: ");
+							valorTransferencia = leitor.nextDouble();
+							
+							//crio uma operacao de conta para transferir
+							OperacaoConta s = new OperacaoConta();
+							
+							//Imprimir os valores originais
+							System.out.println("Cliente Origem: " + contas.get(indiceOrigem).getCliente().getNome() + " saldo: R$ " + contas.get(indiceOrigem).getSaldo());
+							System.out.println("Cliente Destino: " + contas.get(indiceDestino).getCliente().getNome() + " saldo: R$ " + contas.get(indiceDestino).getSaldo());
+							
+							//passo como parametro para o metodo a conta origem, o valor a transferir e a conta destino
+							s.transferir(contas.get(indiceOrigem), valorTransferencia, contas.get(indiceDestino));
+							
+							//imprimir e gravar os novos valores apos a transferencia
+							System.out.println("Cliente Origem: " + contas.get(indiceOrigem).getCliente().getNome() + " saldo: R$ " + contas.get(indiceOrigem).getSaldo());
+							this.indice = indiceOrigem;
+							gravar();
+							System.out.println("Cliente Destino: " + contas.get(indiceDestino).getCliente().getNome() + " saldo: R$ " + contas.get(indiceDestino).getSaldo());
+							this.indice = indiceDestino;
+							gravar();
+						}
+						//controle para parar de transferir quando o usuario digitar sair
+						System.out.println("Digite qualquer tecla para realizar outra transferencia ou sair para encerrar: ");
+						leitor.nextLine();
+						escolha = leitor.next();//usei next para corrigir conflito que aparece quando uso nextLine
+					} while(!"sair".equals(escolha));
 				}
 			}
 		}
-		System.out.println("terminou");
 	}//fim metodo transferirSistema
 	
 	//Metodo que pesquisa uma conta pelo codigo cadastrado e retorna a posicao desta no array

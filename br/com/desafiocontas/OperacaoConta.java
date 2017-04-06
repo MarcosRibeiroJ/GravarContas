@@ -18,8 +18,6 @@ public class OperacaoConta {
 	public void sacar(Conta2 contaSaque, double valorSaque) {
 		if(verificaSaldo(contaSaque, valorSaque)) {
 			contaSaque.setSaldo(contaSaque.getSaldo() - valorSaque);
-		} else {
-			String mensagem = "Impossivel realizar a operação, saldo insuficiente";
 		}
 	}
 	
@@ -31,8 +29,6 @@ public class OperacaoConta {
 		if(verificaSaldo(contaOrigem, valorTransferido)) {
 			sacar(contaOrigem, valorTransferido);
 			depositar(contaDestino, valorTransferido);
-		} else {
-			String mensagem = "Impossivel realizar a operação, saldo insuficiente";
 		}
 	}
 	

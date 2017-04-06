@@ -11,9 +11,9 @@ public class GeralContas {
 	public static void main(String[] args) {
 		
 		OperacaoSistema op = new OperacaoSistema();
-		//op.cadastrar();
-		//op.sacarSistema();
-		//op.depositarSistema();
+		op.cadastrar();
+		op.sacarSistema();
+		op.depositarSistema();
 		op.transferirSistema();
 
 	}
