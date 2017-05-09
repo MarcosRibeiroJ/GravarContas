@@ -18,7 +18,7 @@ public class OperacaoSistema {
 	ArrayList<Conta2> contas = new ArrayList<Conta2>();
 	String path = "C:/Users/Markinho/cadastro2.txt", escolha;
 	File arquivo;
-	int indice = 0;
+	int indice;
 
 	//Metodo que cadastra conta com nome e saldo de usuario
 	public void cadastrar() {
@@ -36,11 +36,14 @@ public class OperacaoSistema {
 			//criacao de objeto do tipo conta que recebe os dados do saldo e ja cria um objeto do tipo pessoa para armazenar o nome
 			Conta2 conta = new Conta2(codConta, new Cliente(nome), leitor.nextDouble());
 			this.contas.add(conta);//adicionando objeto conta no arraylist
+			
+			//pesquisa posicao no array da conta criada para gravar no txt
+			indice = pesquisar(contas, codConta);
+			
 			gravar();//chamada do metodo que grava dados no arquivo
 			//controle para sair do laco ou continuar cadastrando contas
 			System.out.println("Deseja cadastrar outra conta? ");
 			op = leitor.nextLine();
-			indice++;
 		} while(!"nao".equals(op = leitor.nextLine()));
 	}//fim cadastrar
 	
