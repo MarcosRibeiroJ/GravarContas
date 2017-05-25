@@ -1,5 +1,13 @@
 package br.com.desafiocontas;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+
 /**
  * Classe criada para automatizar a criacao de contas e as operacoes de saque, deposito e transferencia
  * @author Marcos Ribeiro
@@ -7,10 +15,6 @@ package br.com.desafiocontas;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 
 public class OperacaoSistema {
 	
@@ -300,5 +304,25 @@ public class OperacaoSistema {
 			e.printStackTrace();
 		}
 	}//fim metodo gravar
+	
+	//Metodo para ler o conteudo do txt e imprimir
+	public void exibirConteudo() {
+		
+		//criado objeto do tipo arquivo
+		this.arquivo = new File(this.path);
+		
+		//criando objeto BufferedReader para realizar a leitura dos dados
+		try(BufferedReader ler = new BufferedReader(new FileReader(arquivo))) {
+			//criando uma string linha para armazenar o conteudo das linhas do txt
+			String linha = null;
+			//linha recebe e imprime o conteudo de cada linha do arquivo enquanto nao for nula
+			while((linha = ler.readLine()) != null) {
+				System.out.println(linha);
+			}
+		} catch(IOException e) {
+			e.printStackTrace();
+		}
+		
+	}//fim metodo exibirConteudo
 	
 }//fim classe

@@ -15,6 +15,7 @@ public class GeralContas {
 		op.sacarSistema();
 		op.depositarSistema();
 		op.transferirSistema();
+		op.exibirConteudo();
 
 	}
 
